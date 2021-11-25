@@ -1,0 +1,15 @@
+---
+- name : creating container from image
+  hosts : all
+  remote_user : docker
+  become : true
+  tasks :
+  - name : create container onmobile-docker
+    shell : docker run --name onmobile-docker -d -p 8196:80 ansible-docker:v1
+
+  - name : list containers
+    shell : docker ps
+    register : d2
+
+  - debug :
+      var : d2
