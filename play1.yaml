@@ -1,0 +1,14 @@
+---
+- name : playbook to create new directory and file
+  hosts : Docker2
+  tasks :
+  - name : create directory name as onmobile-test
+    file :
+      path : /onmobile-test
+      state : directory
+
+  - name : create file welcome
+    copy :
+      content : "Welcome to Ansible Automation \n"
+      dest : /onmobile-test/welcome
+

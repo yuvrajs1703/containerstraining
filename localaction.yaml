@@ -1,0 +1,19 @@
+---
+- name : Get OS version from servers
+  hosts : all
+  remote_user : docker
+  become : true
+  gather_facts : no
+  tasks : 
+  - name : get hostname
+    shell : hostname
+    register : host_name
+  - name : get OS version
+    shell : cat /etc/*release* | head -1
+    register : os_version
+  - name : ip address
+    shell : ifconfig | grep -w inet | grep broadcast | awk '{print $2}'
+    register : ifconf_ip
+  - name : write output to file
+    local_action : shell echo '{{ host_name.stdout }} ; {{ os_version.stdout }} ; {{ ifconf_ip.stdout }}' >> os_Details.csv
+    become : false

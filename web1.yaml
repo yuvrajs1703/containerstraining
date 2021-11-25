@@ -1,0 +1,26 @@
+---
+- name : Deploying the web server
+  hosts : all
+  tasks :
+  - name : installing the httpd package
+    yum : 
+      name : httpd
+      state : latest
+
+  - name : start and enable the httpd service
+    service :
+      name : httpd
+      state : started
+      enabled : yes
+
+  - name : create index.html under /var/www/html
+    copy :
+      content : "Welcome to Onmobile Ansible test page !!!\n"
+      dest : /var/www/html/index.html
+
+  - name : add the http service in firewall
+    firewalld :
+      service : http
+      permanent : yes
+      state : enabled
+      immediate : yes

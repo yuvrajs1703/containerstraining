@@ -1,0 +1,13 @@
+---
+- name : Create server report using Ansible facts
+  hosts : all
+  remote_user : docker
+  become : true
+  tasks :
+  - name : create report under /opt/server.txt
+    copy :
+      content : "1) Server fqdn = {{ ansible_fqdn }} \n
+                 2) OS Version = {{ ansible_distribution }} \n
+                 3) Free memory = {{ ansible_memfree_mb }} \n
+                 4) No. of CPU = {{ ansible_processor_count }} \n"
+      dest : /opt/server.txt

@@ -1,0 +1,17 @@
+---
+- name : copy the file
+  hosts : all
+  remote_user : docker
+  become : true
+  tasks :
+  - name : copy passwd file into /opt/mydata
+    copy :
+      src : /etc/passwd
+      dest : /opt/mydata
+    register : test1
+
+  - name : printing the output
+    debug :
+      var : test1
+    
+
